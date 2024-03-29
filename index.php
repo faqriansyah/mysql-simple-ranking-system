@@ -8,6 +8,7 @@ class Rank
         $query = "SELECT view FROM voting_data";
     }
 
+    // The algorithm
     function wilson($id, $upvote, $downvote, $views, $confidence = 1.96)
     {
         $n = $upvote + $downvote;
@@ -31,8 +32,10 @@ $query = $conn->query("SELECT * FROM rank");
 while($x = $query->fetch_assoc()) {
     $clc = $rnk->wilson($x['id'], $x['upvote'], $x['downvote'], $x['view']);
 
-    $fnl = array_push($x, $clc);
+    // Pushing the wilson score into query array result
+    array_push($x, $clc);
 
+    // now score is on 5th index
     echo '<pre>';
     var_dump($fnl);
     echo '</pre>';
